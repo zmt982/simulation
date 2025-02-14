@@ -24,6 +24,6 @@ public class PredatorTurnAction extends CreatureTurnAction {
         Set<Coordinates> predatorsCells = map.findAllByType(Predator.class);
         Set<Coordinates> herbivoresCells = map.findAllByType(Herbivore.class);
 
-        creaturesTurns(map, predatorsCells, herbivoresCells, false);
+        creaturesTurns(map, predatorsCells, herbivoresCells);
     }
 }

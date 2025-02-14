@@ -29,15 +29,15 @@ public class Renderer {
     public static final String TREE_IMAGE = "\uD83C\uDF33"; // изображение дерева
 
     public void render(Map map) {
-//        try {
-//            TimeUnit.SECONDS.sleep(2);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        for (int X = MAP_X_SIZE; X >= 0; X--) {
+        for (int X = 0; X <= MAP_X_SIZE; X++) {
             String line = "";
-            for (int Y = MAP_Y_SIZE; Y >= 0; Y--) {
+            for (int Y = 0; Y <= MAP_Y_SIZE; Y++) {
                 Coordinates coordinates = new Coordinates(X, Y);
                 if (map.isEmptyCell(coordinates)) {
                     line += getEmptySprite();
@@ -45,7 +45,7 @@ public class Renderer {
                     line += getEntitySprite(map.getEntity(coordinates));
                 }
             }
-            System.out.println(line);
+            System.out.println("X:" + X + line);
         }
     }
 

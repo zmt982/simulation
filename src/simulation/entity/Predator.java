@@ -31,7 +31,12 @@ public class Predator extends Creature {
 
             herbivore.decreaseHP(ATTACK_POWER);
 
+            System.out.println(this.coordinates + " атаковал " + herbivore.coordinates.toString());
+
             if (!herbivore.isAlive()) {
+
+                System.out.println(foodEntity.getClass().getSimpleName() + " удален с карты");
+
                 map.removeEntity(foodCoordinates);
             }
 

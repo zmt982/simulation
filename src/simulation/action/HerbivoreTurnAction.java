@@ -23,6 +23,6 @@ public class HerbivoreTurnAction extends CreatureTurnAction {
         Set<Coordinates> grassesCells = map.findAllByType(Grass.class);
 
         // перебираем всех травоядных
-        PredatorTurnAction.creaturesTurns(map, herbivoresCells, grassesCells, true);
+        creaturesTurns(map, herbivoresCells, grassesCells);
     }
 }

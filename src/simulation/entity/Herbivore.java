@@ -5,8 +5,8 @@ import simulation.Map;
 
 // Стремятся найти ресурс (траву), может потратить свой ход на движение в сторону травы, либо на её поглощение
 public class Herbivore extends Creature {
-    public static final int HERBIVORE_SPEED = 3;
-    public static final int MAX_HERBIVORE_HP = 10;
+    public static final int HERBIVORE_SPEED = 1;
+    public static final int MAX_HERBIVORE_HP = 5;
     public static final int INCREASE_HP_FOR_EAT_GRASS = 3;
 
     public Herbivore(Coordinates coordinates) {

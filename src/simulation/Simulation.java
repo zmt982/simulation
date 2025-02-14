@@ -32,8 +32,8 @@ public class Simulation {
         System.out.println();
         isRunning = true;
 
-//        while (isRunning) {
-        while (turnCounter < 30) {
+        while (isRunning) {
+//        while (turnCounter < 30) {
             nextTurn();
             System.out.println();
         }

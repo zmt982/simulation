@@ -5,6 +5,7 @@ import simulation.CoordinatesShift;
 import simulation.Map;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 abstract public class Creature extends Entity {
@@ -58,11 +59,16 @@ abstract public class Creature extends Entity {
         return result;
     }
 
-    public void makeMove(Coordinates to, Map map) {
-        Set<Coordinates> availableSquares = getAvailableMoveCells(map);
-        if (availableSquares.contains(to)) {
-            map.removeEntity(coordinates);
-            map.setEntity(to, this);
+    public void makeMove(List<Coordinates> path, Map map) {
+        Set<Coordinates> availableCellsForMove = getAvailableMoveCells(map);
+
+        for (int i = path.size() - 1; i >= 0; i--) {
+            Coordinates to = path.get(i);
+            if (availableCellsForMove.contains(to)) {
+                map.removeEntity(coordinates);
+                map.setEntity(to, this);
+                break;
+            }
         }
     }
 

@@ -9,33 +9,30 @@ import java.util.List;
 import java.util.Set;
 
 abstract public class CreatureTurnAction extends Action {
-    static void creaturesTurns(Map map, Set<Coordinates> eatersCells, Set<Coordinates> foodsCells, boolean isHerbivore) {
+    protected void creaturesTurns(Map map, Set<Coordinates> eatersCells, Set<Coordinates> foodsCells) {
         for (Coordinates eaterCell : eatersCells) {
             Entity eaterEntity = map.getEntity(eaterCell);
             Creature eater = (Creature) eaterEntity;
 
-            for (Coordinates foodCell : foodsCells) {
-                if (map.isNeighbor(eaterCell, foodCell)) {
-                    if (isHerbivore) {
-                        // если травоядное ест траву
-                        eater.eat(foodCell, map);
-                    } else {
-                        // если хищник кусает травоядное
-                        eater.eat(foodCell, map);
-                    }
+            boolean ateFood = false; // флаг, чтобы понять, поело ли существо
 
+            for (Coordinates foodCell : foodsCells) {
+                if (!map.isEmptyCell(foodCell) && map.isNeighbor(eaterCell, foodCell)) {
+                    eater.eat(foodCell, map);
                     if (map.isEmptyCell(foodCell)) {
                         foodsCells.remove(foodCell);
                     }
-                    break;
-                } else {
-                    List<Coordinates> path = map.findPath(eaterCell, foodsCells);
 
-                    if (!path.isEmpty()) {
-                        Coordinates destination = path.get(path.size() - 1);
-                        eater.makeMove(destination, map);
-                        break;
-                    }
+                    ateFood = true; // существо поело, значит дальше не надо двигаться
+                    break;
+                }
+            }
+
+            if (!ateFood) {
+                List<Coordinates> path = map.findPath(eaterCell, foodsCells);
+
+                if (!path.isEmpty()) {
+                    eater.makeMove(path, map);
                 }
             }
         }
