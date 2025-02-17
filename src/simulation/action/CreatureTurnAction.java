@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 abstract public class CreatureTurnAction extends Action {
+    private final int DECREASE_HP_IN_1_TURN = 1;
+
     protected void creaturesTurns(Map map, Set<Coordinates> eatersCells, Set<Coordinates> foodsCells) {
         for (Coordinates eaterCell : eatersCells) {
             Entity eaterEntity = map.getEntity(eaterCell);
@@ -35,6 +37,7 @@ abstract public class CreatureTurnAction extends Action {
                     eater.makeMove(path, map);
                 }
             }
+            eater.decreaseHP(DECREASE_HP_IN_1_TURN);
         }
     }
 

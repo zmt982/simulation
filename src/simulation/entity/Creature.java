@@ -14,7 +14,6 @@ abstract public class Creature extends Entity {
     protected int HP; // Hit Points (очки здоровья)
     protected int INITIAL_HP;
     private final int MIN_HP = 0;
-    public static final int DECREASE_HP_FOR_1_TURN = 1;
 
     public Creature(Coordinates coordinates, int minSpeed, int maxSpeed, int minHP, int maxHP) {
         super(coordinates);
