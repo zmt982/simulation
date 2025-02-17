@@ -5,14 +5,16 @@ import simulation.Map;
 
 // Стремятся найти ресурс (траву), может потратить свой ход на движение в сторону травы, либо на её поглощение
 public class Herbivore extends Creature {
-    public static final int HERBIVORE_SPEED = 1;
-    public static final int MAX_HERBIVORE_HP = 5;
-    public static final int INCREASE_HP_FOR_EAT_GRASS = 3;
+    private static final int MIN_HERBIVORE_SPEED = 1;
+    private static final int MAX_HERBIVORE_SPEED = 3;
+    private static final int MIN_HERBIVORE_HP = 5;
+    private static final int MAX_HERBIVORE_HP = 15;
+    private final int INCREASE_HP_FOR_EAT_GRASS = 3;
 
     public Herbivore(Coordinates coordinates) {
-        super(coordinates);
-        this.speed = HERBIVORE_SPEED;
-        this.HP = MAX_HERBIVORE_HP;
+        super(coordinates,
+                MIN_HERBIVORE_SPEED, MAX_HERBIVORE_SPEED,
+                MIN_HERBIVORE_HP, MAX_HERBIVORE_HP);
     }
 
     @Override
@@ -25,12 +27,16 @@ public class Herbivore extends Creature {
         Entity foodEntity = map.getEntity(foodCoordinates);
         if (isEatable(foodEntity)) {
             map.removeEntity(foodCoordinates);
-            this.increaseHP(INCREASE_HP_FOR_EAT_GRASS, MAX_HERBIVORE_HP);
+            this.increaseHP(INCREASE_HP_FOR_EAT_GRASS);
         }
     }
 
     @Override
     public String toString() {
-        return "Herbivore{" + "INCREASE_HP_FOR_EAT_GRASS=" + INCREASE_HP_FOR_EAT_GRASS + ", speed=" + speed + ", HP=" + HP + ", coordinates " + coordinates + '}';
+        return "Herbivore{" +
+                "speed=" + speed +
+                ", HP=" + HP +
+                ", coordinates " + coordinates +
+                '}';
     }
 }

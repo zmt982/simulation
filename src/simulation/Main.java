@@ -24,6 +24,6 @@ public class Main {
         Simulation simulation = new Simulation(map, renderer, initActions, turnActions);
         simulation.startSimulation();
 
-
+        int f = 123;
     }
 }

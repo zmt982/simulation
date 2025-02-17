@@ -6,6 +6,7 @@ import simulation.entity.Herbivore;
 import simulation.entity.Predator;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Simulation {
     private Map map;
@@ -42,6 +43,7 @@ public class Simulation {
     // просимулировать и отрендерить один ход
     public void nextTurn() {
         turnCounter++;
+        System.out.println("ход номер " + turnCounter);
         // Выполняем все действия на этот ход
         for (Action action : turnActions) {
             if (!(action instanceof AddGrassAction) &&
@@ -66,6 +68,12 @@ public class Simulation {
         }
 
         renderer.render(map);
+
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // приостановить бесконечный цикл симуляции и рендеринга

@@ -16,6 +16,12 @@ public class Map {
         return !entities.containsKey(coordinates);
     }
 
+    // доступно ли поле для перемещения в него
+    public boolean isCellAvailableForMove(Coordinates coordinates) {
+        Entity entity = getEntity(coordinates);
+        return isEmptyCell(coordinates);
+    }
+
     public boolean isNeighbor(Coordinates coordinates, Coordinates neighbor) {
         int dX = Math.abs(coordinates.X - neighbor.X);
         int dY = Math.abs(coordinates.Y - neighbor.Y);

@@ -3,6 +3,7 @@ package simulation.entity;
 import simulation.Coordinates;
 import simulation.CoordinatesShift;
 import simulation.Map;
+import simulation.Utils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,11 +12,15 @@ import java.util.Set;
 abstract public class Creature extends Entity {
     protected int speed; // сколько клеток может пройти за 1 ход
     protected int HP; // Hit Points (очки здоровья)
+    protected int INITIAL_HP;
     private final int MIN_HP = 0;
     public static final int DECREASE_HP_FOR_1_TURN = 1;
 
-    public Creature(Coordinates coordinates) {
+    public Creature(Coordinates coordinates, int minSpeed, int maxSpeed, int minHP, int maxHP) {
         super(coordinates);
+        this.speed = Utils.getRandomIntInRange(minSpeed, maxSpeed);
+        this.HP = Utils.getRandomIntInRange(minHP, maxHP);
+        this.INITIAL_HP = this.HP;
     }
 
     // получить перечень доступных ходов
@@ -26,19 +31,13 @@ abstract public class Creature extends Entity {
             if (coordinates.canShift(shift)) {
                 Coordinates newCoordinates = coordinates.shift(shift);
 
-                if (isCellAvailableForMove(newCoordinates, map)) {
+                if (map.isCellAvailableForMove(newCoordinates)) {
                     result.add(newCoordinates);
                 }
             }
         }
 
         return result;
-    }
-
-    // доступно ли поле для перемещения в него
-    public boolean isCellAvailableForMove(Coordinates coordinates, Map map) {
-        Entity entity = map.getEntity(coordinates);
-        return map.isEmptyCell(coordinates) || isEatable(entity);
     }
 
     // получить список всех передвижений в зависимости от скорости передвижения существа
@@ -72,8 +71,8 @@ abstract public class Creature extends Entity {
         }
     }
 
-    public void increaseHP(int value, int max_HP) {
-        HP = Math.min(HP + value, max_HP); // Ограничиваем HP максимумом
+    public void increaseHP(int value) {
+        this.HP = Math.min(this.HP + value, this.INITIAL_HP); // Ограничиваем HP максимумом
     }
 
     public void decreaseHP(int value) {
