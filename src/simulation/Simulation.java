@@ -46,25 +46,7 @@ public class Simulation {
         System.out.println("ход номер " + turnCounter);
         // Выполняем все действия на этот ход
         for (Action action : turnActions) {
-            if (!(action instanceof AddGrassAction) &&
-                    !(action instanceof AddHerbivoreAction) &&
-                    !(action instanceof AddPredatorAction))
-                action.execute(map);
-        }
-
-        // Если на карте нет травы, добавляем
-        if (map.countEntities(Grass.class) == 0) {
-            new AddGrassAction().execute(map);
-        }
-
-        // Если на карте нет травядных, добавляем
-        if (map.countEntities(Herbivore.class) == 0) {
-            new AddHerbivoreAction().execute(map);
-        }
-
-        // Если на карте нет хищников, добавляем
-        if (map.countEntities(Predator.class) == 0) {
-            new AddPredatorAction().execute(map);
+            action.execute(map);
         }
 
         renderer.render(map);
